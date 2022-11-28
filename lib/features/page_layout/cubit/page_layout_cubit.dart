@@ -25,7 +25,6 @@ class PageLayoutCubit extends Cubit<PageLayoutState> {
   }
 
   void moveShapeToTop(Shape? shape) {
-    print('the shape is nul ${shape == null}');
     if (shape == null) return;
 
     emit(state.copyWith(
