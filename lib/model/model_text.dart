@@ -1,28 +1,29 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:id_generator/model/model_font.dart';
 import 'package:id_generator/model/model_item.dart';
 
-part 'model_text.freezed.dart';
+part 'model_text.mapper.dart';
 
-part 'model_text.g.dart';
+@MappableClass()
+class ModelText with ModelTextMappable {
+  const ModelText({
+    required this.id,
+    required this.item,
+    required this.font,
+    required this.text,
+    this.maxWidth,
+    this.textPosition = TextPosition.horizontal,
+  });
 
-@freezed
-class ModelText with _$ModelText {
-  factory ModelText({
-    required String id,
-    required ModelItem item,
-    required ModelFont font,
-    required String text,
-    double? maxWidth,
-    @Default(TextPosition.horizontal) TextPosition textPosition,
-  }) = _ModelText;
+  final String id;
+  final ModelItem item;
+  final ModelFont font;
+  final String text;
+  final double? maxWidth;
+  final TextPosition textPosition;
 
-  factory ModelText.fromJson(Map<String, dynamic> map) => _$ModelTextFromJson(map);
+  static const fromJson = ModelTextMapper.fromJson;
 }
 
-enum TextPosition {
-  @JsonValue('vertical')
-  vertical,
-  @JsonValue('horizontal')
-  horizontal
-}
+@MappableEnum()
+enum TextPosition { vertical, horizontal }

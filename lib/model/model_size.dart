@@ -1,14 +1,15 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'model_size.g.dart';
-part 'model_size.freezed.dart';
+part 'model_size.mapper.dart';
 
-@freezed
-class ModelSize with _$ModelSize {
-  factory ModelSize({
-    required double width,
-    required double height,
-  }) = _ModelSize;
+@MappableClass()
+class ModelSize with ModelSizeMappable {
+  const ModelSize({
+    required this. width,
+    required this. height,
+  });
+  final double width;
+  final double height;
 
-  factory ModelSize.fromJson(Map<String, dynamic> json) => _$ModelSizeFromJson(json);
+  static const fromJson = ModelSizeMapper.fromJson;
 }

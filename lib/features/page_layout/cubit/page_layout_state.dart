@@ -1,12 +1,20 @@
-part of 'page_layout_cubit.dart';
+import 'dart:ui';
 
-@freezed
-class PageLayoutState with _$PageLayoutState {
-  factory PageLayoutState({
-    @Default([]) List<Shape> shapes,
-    Shape? selectedShape,
-    Image? backgroundImage,
-  }) = _PageLayoutState;
+import 'package:dart_mappable/dart_mappable.dart';
 
-  factory PageLayoutState.initialize() => PageLayoutState();
+import '../../id_painter/model/shape.dart';
+
+part 'page_layout_state.mapper.dart';
+
+@MappableClass()
+class PageLayoutState with PageLayoutStateMappable {
+  const PageLayoutState({
+    this.shapes = const [],
+    this.selectedShape,
+    this.backgroundImage,
+  });
+
+  final List<Shape> shapes;
+  final Shape? selectedShape;
+  final Image? backgroundImage;
 }

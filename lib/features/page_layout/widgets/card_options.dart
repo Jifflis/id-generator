@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:id_generator/features/widgets/button.dart';
 
-import '../../../app/style.dart';
+import '../../../core/constant/style.dart';
+import '../../../widgets/button.dart';
 
 class CardOptions extends StatelessWidget {
   const CardOptions({

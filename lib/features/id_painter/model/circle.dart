@@ -7,12 +7,9 @@ import 'package:id_generator/features/id_painter/model/shape.dart';
 class Circle extends Shape {
   Circle({
     required this.radius,
-    required Offset offset,
-    Paint? paint,
-  }) : super(
-          offset: offset,
-          paint: paint,
-        );
+    required super.offset,
+    super.paint,
+  });
   double radius;
 
   @override

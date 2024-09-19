@@ -7,9 +7,9 @@ class Rectangle extends Shape {
   Rectangle({
     required this.width,
     required this.height,
-    required Offset offset,
-    Paint? paint,
-  }) : super(offset: offset, paint: paint);
+    required super.offset,
+    super.paint,
+  });
 
   double width;
   double height;

@@ -2,16 +2,14 @@ import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:id_generator/features/page_layout/cubit/page_layout_state.dart';
 
 import '../../id_painter/model/shape.dart';
 
-part 'page_layout_cubit.freezed.dart';
 
-part 'page_layout_state.dart';
 
 class PageLayoutCubit extends Cubit<PageLayoutState> {
-  PageLayoutCubit() : super(PageLayoutState.initialize());
+  PageLayoutCubit() : super(const PageLayoutState());
 
   set selectedShape(Shape? shape) {
     emit(state.copyWith(selectedShape: shape));

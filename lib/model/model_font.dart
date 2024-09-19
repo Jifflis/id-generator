@@ -1,26 +1,26 @@
-import 'package:flutter/cupertino.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 //ignore_for_file:invalid_annotation_target
 
-part 'model_font.g.dart';
-part 'model_font.freezed.dart';
+part 'model_font.mapper.dart';
 
-@freezed
-class ModelFont with _$ModelFont {
-  factory ModelFont({
-    required String fontName,
-    required double fontSize,
-    @Default(Alignment.left) Alignment alignment,
-  }) = _ModelFont;
+@MappableClass()
+class ModelFont with  ModelFontMappable {
+  const ModelFont({
+    required this.fontName,
+    required this.fontSize,
+   this.alignment = Alignment.left,
+  });
 
-  factory ModelFont.fromJson(Map<String, dynamic> map) => _$ModelFontFromJson(map);
+  final String fontName;
+  final double fontSize;
+  final Alignment alignment;
+
+  static const fromJson = ModelFontMapper.fromJson;
 }
 
+@MappableEnum()
 enum Alignment {
-  @JsonKey(name: 'center')
   center,
-  @JsonKey(name: 'right')
   right,
-  @JsonKey(name: 'left')
   left
 }

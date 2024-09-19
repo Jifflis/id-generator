@@ -6,11 +6,11 @@ import 'package:id_generator/features/id_painter/model/shape.dart';
 class TextShape extends Shape {
   TextShape({
     required this.text,
-    required Offset offset,
+    required super.offset,
     required this.maxWidth,
     this.textStyle,
     this.textDirection = TextDirection.ltr,
-  }) : super(offset: offset) {
+  }) {
     _initializeTextStyle();
   }
 

@@ -1,15 +1,17 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:id_generator/model/model_point.dart';
 
-part 'model_item.g.dart';
-part 'model_item.freezed.dart';
+part 'model_item.mapper.dart';
 
-@freezed
-class ModelItem with _$ModelItem {
-  factory ModelItem({
-    @Default('') String label,
-    required ModelPoint point,
-  }) = _ModelItem;
+@MappableClass()
+class ModelItem with ModelItemMappable {
+  const ModelItem({
+    this.label = '',
+    required this.point,
+  }) ;
 
-  factory ModelItem.fromJson(Map<String, dynamic> map) => _$ModelItemFromJson(map);
+  final String label;
+  final ModelPoint point;
+
+  static const fromJson = ModelItemMapper.fromJson;
 }

@@ -1,10 +1,15 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'model_point.freezed.dart';
-part 'model_point.g.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-@freezed
-class ModelPoint with _$ModelPoint {
-  factory ModelPoint({required double x, required double y}) = _ModelPoint;
+part 'model_point.mapper.dart';
 
-  factory ModelPoint.fromJson(Map<String, dynamic> map) => _$ModelPointFromJson(map);
+@MappableClass()
+class ModelPoint with ModelPointMappable {
+  const ModelPoint({
+    required this.x,
+    required this.y,
+  });
+
+  final double x;
+  final double y;
+  static const fromJson = ModelPointMapper.fromJson;
 }

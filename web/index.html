@@ -2,57 +2,183 @@
 <html>
 <head>
   <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+  If you are serving your web app in a path other than the root, change the
+  href value below to reflect the base path you are serving from.
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+  The path provided below has to start and end with a slash "/" in order for
+  it to work correctly.
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  For more details:
+  * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
+  This is a placeholder for base href that will be replaced by the value of
+  the `--base-href` argument provided to `flutter build`.
+-->
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <base href="$FLUTTER_BASE_HREF" />
+
+  <meta charset="UTF-8" />
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+  <meta name="description" content="QR management for the Enterprise." />
 
   <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="id_generator">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="conqrse_app" />
+  <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>id_generator</title>
-  <link rel="manifest" href="manifest.json">
+  <title>Conqrse</title>
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Mix Panel -->
+  <script src="./assets/packages/mixpanel_flutter/assets/mixpanel.js"></script>
+
+  <style>
+      body {
+        background-color: '#111729';
+        height: 100vh;
+        width: 100vw;
+        margin: 0px;
+      }
+
+      .main-content {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.4s ease-out;
+      }
+
+      img {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        margin-bottom: 16px;
+      }
+
+      .loader {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        border: 3px solid;
+        border-color: #05c7f2 #05c7f2 transparent;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+      }
+      .loader::after {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        border: 3px solid;
+        border-color: transparent #fa472a #fa472a;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        animation: rotationBack 0.5s linear infinite;
+        transform-origin: center center;
+      }
+
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes rotationBack {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(-360deg);
+        }
+      }
+    </style>
+
+  <!-- <script>
+    const redirectToFragment = () => {
+      if (window.location.search.includes('code=')) {
+        const fragment = window.location.search.replace('?', '/#/auth?');
+        const newUrl = window.location.href.replace(
+          window.location.search,
+          fragment
+        );
+        window.location.replace(newUrl);
+      }
+    };
+
+    redirectToFragment();
+  </script> -->
 
   <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
-  </script>
+      // The value below is injected by flutter build, do not touch.
+      var serviceWorkerVersion = null;
+    </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
 <body>
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        }
-      }).then(function(engineInitializer) {
-        return engineInitializer.initializeEngine();
-      }).then(function(appRunner) {
-        return appRunner.runApp();
+<script>
+      function delay(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+      }
+
+      var loaderContent = document.querySelector('#loader-content');
+
+      window.addEventListener('load', function (ev) {
+        // Download main.dart.js
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          },
+          onEntrypointLoaded: async function (engineInitializer) {
+            let appRunner = await engineInitializer.initializeEngine({
+              hostElement: document.querySelector('#flutter_app'),
+              renderer: 'canvaskit',
+            });
+            appRunner.runApp();
+          },
+        });
+
+        setTimeout(function () {
+          var usernameField = document.getElementById('email')[0];
+          var passwordField = document.getElementById('password')[0];
+        }, 500);
       });
-    });
-  </script>
+    </script>
+<div class="main-content" id="loader-content">
+  <img src="logo.png" alt="Conqrse Logo" />
+  <span class="loader"></span>
+</div>
+<input
+        type="email"
+        id="email"
+        name="email"
+        autocomplete="username"
+        placeholder="Email"
+        style="display: none"
+/>
+<input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+        autocomplete="current-password"
+        style="display: none"
+/>
 </body>
 </html>

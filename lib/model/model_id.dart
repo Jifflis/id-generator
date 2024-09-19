@@ -1,19 +1,25 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
 import 'model_image.dart';
 import 'model_text.dart';
-part 'model_id.g.dart';
-part 'model_id.freezed.dart';
 
-@freezed
-class ModelId with _$ModelId {
-  factory ModelId({
-    required String id,
-    required String title,
-    String? backgroundPath,
-    @Default([]) List<ModelImage> images,
-    @Default([]) List<ModelText> texts,
-  }) = _ModelId;
+part 'model_id.mapper.dart';
 
-  factory ModelId.fromJson(Map<String, dynamic> map) => _$ModelIdFromJson(map);
+@MappableClass()
+class ModelId with ModelIdMappable {
+  const ModelId({
+    required this.id,
+    required this.title,
+    this.backgroundPath,
+    this.images = const [],
+    this.texts = const [],
+  });
+
+  final String id;
+  final String title;
+  final String? backgroundPath;
+  final List<ModelImage> images;
+  final List<ModelText> texts;
+
+  static const fromJson = ModelIdMapper.fromJson;
 }

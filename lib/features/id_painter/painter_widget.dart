@@ -5,8 +5,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:id_generator/features/id_painter/model/circle.dart';
 import 'package:id_generator/features/id_painter/model/square.dart';
+import 'package:id_generator/features/id_painter/model/text.dart';
 
-import '../../app/style.dart';
+import '../../core/constant/style.dart';
 import 'model/id_painter.dart';
 import 'model/shape.dart';
 
@@ -78,10 +79,10 @@ class _PainterWidgetState extends State<PainterWidget> {
     return Container(
       width: widget.width,
       height: widget.height,
-      color: Style.colorWhite,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      color: Colors.black,
+      child: Stack(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GestureDetector(
             onTapDown: _onTapDownFn,
@@ -95,72 +96,89 @@ class _PainterWidgetState extends State<PainterWidget> {
               ),
             ),
           ),
-          // FittedBox(
-          //   child: Row(
-          //     crossAxisAlignment: CrossAxisAlignment.center,
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       TextButton(
-          //         onPressed: () {
-          //           _shapes.insert(
-          //               0,
-          //               Circle(
-          //                   radius: 40,
-          //                   offset: const Offset(300 / 2, 500 / 2),
-          //                   paint: Paint()
-          //                     ..color = Colors.lightGreenAccent
-          //                     ..strokeWidth = 3
-          //                     ..style = PaintingStyle.fill
-          //                     ..strokeCap = StrokeCap.round));
-          //         },
-          //         child: const Text('Add Circle'),
-          //       ),
-          //       TextButton(
-          //         onPressed: () {
-          //           _shapes.insert(
-          //               0,
-          //               Square(
-          //                   size: 80,
-          //                   offset: const Offset(300 / 2, 500 / 2),
-          //                   paint: Paint()
-          //                     ..color = Colors.yellow
-          //                     ..strokeWidth = 3
-          //                     ..style = PaintingStyle.fill
-          //                     ..strokeCap = StrokeCap.round));
-          //         },
-          //         child: const Text('Add Square'),
-          //       ),
-          //       TextButton(
-          //         onPressed: () {
-          //           //  _handleSavePressed();
-          //           // shapes.add(TextShape(
-          //           //   text: 'Sample Text',
-          //           //   textStyle: TextStyle(backgroundColor: Colors.green),
-          //           //   offset: const Offset(300 / 2, 500 / 2),
-          //           //   maxWidth: 100,
-          //           // ));
-          //         },
-          //         child: const Text('Add Text'),
-          //       ),
-          //       TextButton(
-          //         onPressed: () async {
-          //           FilePickerResult? result = await FilePicker.platform.pickFiles(withData: true);
-          //
-          //           if (result != null) {
-          //             final bytes = result.files.first.bytes;
-          //             if (bytes != null) {
-          //               _backgroundImage = await decodeImageFromList(bytes);
-          //               setState(() {});
-          //             }
-          //           } else {
-          //             // User canceled the picker
-          //           }
-          //         },
-          //         child: const Text('Add background'),
-          //       ),
-          //     ],
-          //   ),
-          // )
+          FittedBox(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    _shapes.insert(
+                        0,
+                        Circle(
+                            radius: 40,
+                            offset: const Offset(300 / 2, 500 / 2),
+                            paint: Paint()
+                              ..color = Colors.lightGreenAccent
+                              ..strokeWidth = 3
+                              ..style = PaintingStyle.fill
+                              ..strokeCap = StrokeCap.round));
+
+                    setState(() {});
+                  },
+                  child: const Text('Add Circle'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    _shapes.insert(
+                        0,
+                        Square(
+                            size: 80,
+                            offset: const Offset(300 / 2, 500 / 2),
+                            paint: Paint()
+                              ..color = Colors.yellow
+                              ..strokeWidth = 3
+                              ..style = PaintingStyle.fill
+                              ..strokeCap = StrokeCap.round));
+                  },
+                  child: const Text('Add Square'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    _shapes.insert(
+                        0,
+                        TextShape(
+                          offset: const Offset(300 / 2, 500 / 2),
+                          text: 'Sample Text',
+                          maxWidth: 1000,
+                          textStyle: const TextStyle(
+                            color: Colors.white
+                          )
+                        ));
+                  },
+                  child: const Text('Add Text'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    //  _handleSavePressed();
+                    // shapes.add(TextShape(
+                    //   text: 'Sample Text',
+                    //   textStyle: TextStyle(backgroundColor: Colors.green),
+                    //   offset: const Offset(300 / 2, 500 / 2),
+                    //   maxWidth: 100,
+                    // ));
+                  },
+                  child: const Text('Add Text'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    FilePickerResult? result = await FilePicker.platform.pickFiles(withData: true);
+
+                    if (result != null) {
+                      final bytes = result.files.first.bytes;
+                      if (bytes != null) {
+                        _backgroundImage = await decodeImageFromList(bytes);
+                        setState(() {});
+                      }
+                    } else {
+                      // User canceled the picker
+                    }
+                  },
+                  child: const Text('Add background'),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
